@@ -1,6 +1,6 @@
 !SLIDE
 
-#delegate :wtf, :to => :omg#
+#do_refactor :wtf, :to => :omg
 ##Refactoring Legacy Applications##
 
 <div class="personal-info">
