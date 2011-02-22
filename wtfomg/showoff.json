@@ -1,0 +1,7 @@
+{
+  "name": "delegate :wtf, :to => :omg",
+  "description": "Refactoring Legacy Applications with BDD",
+  "sections": [
+    {"section":"presentation"}
+  ]
+}

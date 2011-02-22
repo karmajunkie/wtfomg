@@ -1,0 +1,42 @@
+.personal-info {
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+  font-size: 18px;
+}
+
+.story{
+  font-size: 24px;
+  postition: relative;
+  width: 400px;
+}
+.story p{
+  margin-top: 20px;
+}
+
+.metric-fu-roodi img{
+  width: 500px;
+  float:right;
+  padding-left: 20px;
+}
+
+.metric-fu-roodi .description{
+  font-size:24px;
+  margin-top: 30px;
+}
+
+.content.code{
+  font-size: 9px;
+}
+
+.content blockquote{
+  font-size: 38px;
+  font-style:italic;
+}
+
+.thanks h1{
+  text-align: left;
+  }
+.thanks li{
+  font-size: 36px;
+}
