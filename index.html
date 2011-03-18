@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title></title>
+  <title>delegate :wtf, :to => :omg</title>
 
   <link rel="stylesheet" href="./css/reset.css" type="text/css"/>
   <link rel="stylesheet" href="./css/showoff.css" type="text/css"/>
@@ -28,12 +28,14 @@
   <link type="text/css" href="./css/sh_style.css" rel="stylesheet" >
 
   
+    <link rel="stylesheet" href="file/presentation.css" type="text/css"/>
+  
 
   
 
   <script type="text/javascript">
   $(function(){
-    setupPreso(true, './');
+    setupPreso(false, './');
   });
   </script>
 </head>
@@ -63,8 +65,369 @@
   <span id="debugInfo"></span>
 </div>
 
-<div id="slides" class="offscreen" >
+<div id="slides" class="offscreen" style="display:none;">
+<div class="slide" data-transition="none"><div class="content" ref="presentation/slides/1">
+<h1>do_refactor :wtf, :to =&gt; :omg</h1>
 
+<h2>Refactoring Legacy Applications</h2>
+
+<div class="personal-info">
+<ul>
+<li>Keith Gaddis</li>
+<li>Inductive Applications
+<li>@karmajunkie</li>
+<li>keith.gaddis@advanceclaim.com</li>
+</li>
+</ul>
+</div>
+</div>
+</div><div class="slide" data-transition="fade"><div class="content bullets incremental" ref="presentation/slides/2">
+<h1>Let's start with some questions</h1>
+
+<ul>
+<li>Who creates test suites for apps religiously?</li>
+<li>Who has never written an automated test suite?</li>
+<li>Who has worked on projects at any point in the past few years that made you want to cause physical harm to the guy who was there before you?</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/3">
+<h1>Problem: Rails is maturing</h1>
+
+<ul>
+<li>Released in July 2004, 1.0 in 2005, 2.0 in 2007, 3.0 in 2010</li>
+<li>Widespread mainstream adoption =&gt;</li>
+<li>Legacy code</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/4">
+<h1>Legacy Code</h1>
+
+<ul>
+<li>Version problem</li>
+<li>Maintenance problem</li>
+<li>Apprentice problem</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/5">
+<h1>Results</h1>
+
+<ul>
+<li>Poorly constructed apps</li>
+<li>Lack of test suite</li>
+<li>Lots of dead code</li>
+<li>(Rinse, repeat)</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/6">
+<h1>Results for Customers</h1>
+
+<ul>
+<li>Buggy software</li>
+<li>Slow release cycles</li>
+<li>Fear of updates</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/7">
+<h1>Results for devs</h1>
+
+<ul>
+<li>Fear of changes</li>
+<li>Inability to fully appreciate effects of change</li>
+<li>Frustration while working</li>
+<li>Long hours</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="toss"><div class="content" ref="presentation/slides/8">
+<h1>You should not fear your software!</h1></div>
+</div><div class="slide" data-transition="none"><div class="content center" ref="presentation/slides/9">
+<h1>The Situation</h1>
+
+<p><img src="./file/presentation/the_situation.jpg" width="380" height="570" alt="The Situation"/></p></div>
+</div><div class="slide" data-transition="toss"><div class="content" ref="presentation/slides/10">
+
+
+<div class="story">
+<p>You've been on the job about two weeks.</p>
+<p>
+You're the guy they hired a few weeks after the architect of the application bailed on the company. 
+</p>
+<p>
+Very little documentation.
+</p>
+
+<p>
+Bugs are popping up out of nowhere.  Customers are increasingly unhappy.
+</p>
+
+<p>
+Management is frantic. And looking at you.
+</p>
+<p>
+(Also, someone took the last Red Bull.)
+</p>
+</div>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="presentation/slides/11">
+<h1>Assumption</h1>
+
+<h2>Both you and management want to fix the problem, not cover it up</h2></div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/12">
+<h1>Understand your priorities: S.T.O.P.</h1>
+
+<ul>
+<li>S &#x2013; Stop</li>
+<li>T &#x2014; Think</li>
+<li>O &#x2014; Observe</li>
+<li>P &#x2014; Plan</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/13">
+<h1>Stop</h1>
+
+<ul>
+<li>When you find yourself in a hole, stop digging.</li>
+<li>Communicate with stakeholders: Product manager, Executive team, Customers</li>
+<li>Get in front of issues</li>
+<li>Most important: Set expectations for the refactoring process</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/14">
+<h1>Think</h1>
+
+<ul>
+<li>Assess problem areas</li>
+<li>Develop intelligence</li>
+<li>Safety first!</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/15">
+<h1>Think: Assess</h1>
+
+<h2>Browse the code</h2>
+
+<ul>
+<li>routes</li>
+<li>ApplicationController</li>
+<li>model/controller count</li>
+<li>rake stats</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="toss"><div class="content metric-fu-roodi" ref="presentation/slides/16">
+<h1>Think: Assess</h1>
+
+<h2>Metrics with metric_fu/metrical</h2>
+
+<p><img alt="metrics" src="/image/presentation/metrics_roodi.png"/>
+
+<p class="description"><code>metric_fu</code> is a gem that will run an extensive suite of metrics on your app, giving you information about hotspots, complex code, and code smells in your app.</p>
+
+<p class="description">Most importantly, it can log these metrics over time, giving you a benchmark for your progress.</p>
+
+<p class="description">Metrical is a command-line interface: <code>gem install metrical</code></p>
+
+<p class="description">Ryan Bates metrics screencast: <a href="http://railscasts.com/episodes/252-metrics-metrics-metrics">http://railscasts.com/episodes/252-metrics-metrics-metrics</a></p></p>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/17">
+<h1>Think: Develop intelligence</h1>
+
+<h2>Know about your customers problems</h2>
+
+<h2>They complain, but not always to you.</h2>
+
+<ul>
+<li>Exception notifier</li>
+<li>Hoptoad/Errbit</li>
+<li>New Relic RPM</li>
+<li>Scout</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smbullets incremental" ref="presentation/slides/18">
+<h1>Think: Safety</h1>
+
+<h2>Warning: ruffled feathers ahead</h2>
+
+<ul>
+<li>An extensive test suite is your safety net</li>
+<li>You are not a good enough software developer to work without a net<br>(<em>and neither is the guy coming behind you</em>)</br>
+<li>Delivering features without tests is the same as buying them on credit</li>
+<li>If you have a <em>really good</em> credit rating your interest is low</li>
+<li><em>You are still paying interest</em></li>
+</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/19">
+<h1>Think: Safety</h1>
+
+<h2>Two good places to start testing</h2>
+
+<h2>opposite ends of spectrum</h2>
+
+<ul>
+<li>Unit tests</li>
+<li>Integration tests</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/20">
+<h1>Unit tests</h1>
+
+<ul>
+<li>Stand alone</li>
+<li>Fewer interactions</li>
+<li>Limit to "weird parts"</li>
+<li>Limited value</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/21">
+<h1>Integration tests</h1>
+
+<ul>
+<li>Cucumber is the best choice</li>
+<li><em>yes, this is a controversial statement</em></li>
+<li>Features are documentation</li>
+<li>Accessible language means you can bring in stakeholders</li>
+<li>BDD approach lets you get away from your really messy internals and focus on the interface</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smbullets incremental" ref="presentation/slides/22">
+<h1>Behavior Driven Development</h1>
+
+<ul>
+<li><blockquote>"BDD is a second-generation, outside-in, pull-based, multiple-stakeholder, multiple-scale, high-automation, agile methodology. It describes a cycle of interactions with well-defined outputs, resulting in the delivery of working, tested software that matters."</blockquote></li>
+<li>WTF does that even mean?</li>
+<li>You don't focus on the code, you focus on the interface.</li>
+<li>This is important, because your code probably sucks and is going to be really hard to test.</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content code" ref="presentation/slides/23">
+<h2>login.feature</h2>
+
+<pre><code>
+Feature: Logging in
+  In order to allow users to use our site and drive ad revenue
+  As a registered user
+  I want to log in with my username and password
+
+  Background:
+    Given the following user exists:
+      | username | 
+      | keith    |
+    When I go to the home page
+     And I fill in "Username" with "keith"
+     And I fill in "Password" with "password"
+     And I press "Log in"
+    Then I should see "Welcome to the flip side"
+</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content code" ref="presentation/slides/24">
+<h2>spec/factories.rb</h2>
+
+<pre><code>
+Factory.define(:user) do |f|
+  f.sequence(:username) {|i| "user_#{"%04d" % i}"}
+  f.password "password"
+end
+
+Factory(:user).login # =&gt; "user_0001"
+</code></pre>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smbullets incremental" ref="presentation/slides/25">
+<h2>Other testing tools to use</h2>
+
+<ul>
+<li><code>steak</code> (alternative to cucumber)<br><em>if you're trying to involve stakeholders, this is a poor choice</em></br>
+<li><code>capybara</code> &#x2014; interact with the web page</li>
+<li><code>factory_girl</code> &#x2014; create your data</li>
+<li><code>webmock</code> &#x2014; mock out external service dependencies</li>
+<li><code>email_spec</code> &#x2014; testing email functions</li>
+<li>Selenium/Webdriver &#x2014; test in a browser (allow AJAX testing)</li>
+</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets observe incremental" ref="presentation/slides/26">
+<h1>Observe</h1>
+
+<ul>
+<li>As you're making changes, you have to keep an eye on the running application</li>
+<li><em>hint: you don't have to wait until you're making changes to do this</em></li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content bullets incremental" ref="presentation/slides/27">
+<h1>Observe: Build</h1>
+
+<ul>
+<li>You've got tests, now set up a Continuous Integration server <br><em>Jenkins (ne&#xE9; Hudson), CruiseControl, CI Joe</em></br>
+<li>Create a metrics build to keep an eye on your hotspots over time</li>
+</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content smbullets incremental" ref="presentation/slides/28">
+<h1>Observe: Monitor</h1>
+
+<ul>
+<li>Same toolsets as you use to assess your application</li>
+<li><em>RPM, Scout, Hoptoad/Errbit</em></li>
+<li>Jump on exceptions with a vengeance</li>
+<li>Never fix a bug without a test&#x2014;use the opportunity to build your test suite out</li>
+<li>Remember goal: increase stability of software</li>
+<li>Prioritize user experience</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content" ref="presentation/slides/29">
+<h2>Now, the fun part</h2>
+
+<h1>Plan</h1></div>
+</div><div class="slide" data-transition="toss"><div class="content smbullets incremental" ref="presentation/slides/30">
+<h1>Plan</h1>
+
+<ul>
+<li>Figure out what areas to tackle in order of priority</li>
+<li>Prefer to prioritize defects over features</li>
+<li>Go for the quick wins and low-hanging fruit<br><em>hint: if you can grep it, you can refactor it</em></br>
+<li>Look for areas you can pull into gems</li>
+<li>Decide on coding standards, and stick to them</li>
+<li>Use version control religiously</li>
+<li>Create a deployment process</li>
+</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none">
+  <div class="content smbullets incremental" ref="presentation/slides/31">
+<h1>Additional thoughts to keep in mind</h1>
+
+<ul>
+<li>This can be an emotional process</li>
+<li>Difficult to know where to start</li>
+<li>Demoralizing</li>
+<li>Try to find ways to mix it up</li>
+<li>Ex: Implement a small, high-value, well-defined, self-contained feature<br>Use a cool technology (appropriately)<br>Work in pairs and switch frequently</br>
+<li>Recognize that <strong><em>it gets easier the more you do it.</em></strong></li>
+</br>
+</li>
+</ul>
+</div>
+</div><div class="slide" data-transition="none"><div class="content thanks" ref="presentation/slides/32">
+<h1>Thanks</h1>
+
+<ul>
+<li>Datran/Otherinbox for hosting us</li>
+<li>Austin on Rails for giving me a soapbox</li>
+<li>Inductive Applications</li>
+<li>@schneems for lending me his power supply so I could finish my slides this afternoon</li>
+</ul>
+
+
+<div class="personal-info">
+<ul>
+<li>Keith Gaddis</li>
+<li>Inductive Applications
+<li>@karmajunkie</li>
+<li>keith.gaddis@advanceclaim.com</li>
+<li>Presentation available at <a href="http://github.com/karmajunkie/wtfomg">http://github.com/karmajunkie/wtfomg</a></li>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 
 </body>
